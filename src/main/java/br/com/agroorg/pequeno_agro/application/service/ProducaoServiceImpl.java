@@ -1,11 +1,14 @@
-package br.com.agroorg.pequeno_agro.service;
+package br.com.agroorg.pequeno_agro.application.service;
 
 
-import br.com.agroorg.pequeno_agro.application.*;
+import br.com.agroorg.pequeno_agro.application.api.ProducaoFiltro;
+import br.com.agroorg.pequeno_agro.application.api.ProducaoListResponse;
+import br.com.agroorg.pequeno_agro.application.api.ProducaoRequest;
+import br.com.agroorg.pequeno_agro.application.api.ProducaoResponse;
 import br.com.agroorg.pequeno_agro.application.mapper.ProducaoMapper;
 import br.com.agroorg.pequeno_agro.domain.Producao;
 import br.com.agroorg.pequeno_agro.handler.APIException;
-import br.com.agroorg.pequeno_agro.repository.ProducaoRepository;
+import br.com.agroorg.pequeno_agro.application.repository.ProducaoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

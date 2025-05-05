@@ -1,9 +1,9 @@
-package br.com.agroorg.pequeno_agro.service;
+package br.com.agroorg.pequeno_agro.application.service;
 
-import br.com.agroorg.pequeno_agro.application.ProducaoFiltro;
-import br.com.agroorg.pequeno_agro.application.ProducaoListResponse;
-import br.com.agroorg.pequeno_agro.application.ProducaoRequest;
-import br.com.agroorg.pequeno_agro.application.ProducaoResponse;
+import br.com.agroorg.pequeno_agro.application.api.ProducaoFiltro;
+import br.com.agroorg.pequeno_agro.application.api.ProducaoListResponse;
+import br.com.agroorg.pequeno_agro.application.api.ProducaoRequest;
+import br.com.agroorg.pequeno_agro.application.api.ProducaoResponse;
 import org.springframework.data.domain.Page;
 
 import org.springframework.data.domain.Pageable;

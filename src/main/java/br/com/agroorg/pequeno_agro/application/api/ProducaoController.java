@@ -1,7 +1,7 @@
-package br.com.agroorg.pequeno_agro.application;
+package br.com.agroorg.pequeno_agro.application.api;
 
 
-import br.com.agroorg.pequeno_agro.service.IProducaoService;
+import br.com.agroorg.pequeno_agro.application.service.IProducaoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

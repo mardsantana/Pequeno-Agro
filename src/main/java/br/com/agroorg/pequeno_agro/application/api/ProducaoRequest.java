@@ -1,4 +1,4 @@
-package br.com.agroorg.pequeno_agro.application;
+package br.com.agroorg.pequeno_agro.application.api;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;

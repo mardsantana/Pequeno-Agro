@@ -1,10 +1,8 @@
-package br.com.agroorg.pequeno_agro.service;
+package br.com.agroorg.pequeno_agro.application.service;
 
-import br.com.agroorg.pequeno_agro.application.ProducaoFiltro;
+import br.com.agroorg.pequeno_agro.application.api.ProducaoFiltro;
 import br.com.agroorg.pequeno_agro.domain.Producao;
 import org.springframework.data.jpa.domain.Specification;
-
-import java.util.Objects;
 
 public class ProducaoSpecs {
 

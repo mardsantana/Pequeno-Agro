@@ -1,7 +1,7 @@
 package br.com.agroorg.pequeno_agro.domain;
 
 
-import br.com.agroorg.pequeno_agro.application.ProducaoRequest;
+import br.com.agroorg.pequeno_agro.application.api.ProducaoRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

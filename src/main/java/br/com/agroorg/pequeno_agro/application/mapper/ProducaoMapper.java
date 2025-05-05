@@ -1,8 +1,8 @@
 package br.com.agroorg.pequeno_agro.application.mapper;
 
-import br.com.agroorg.pequeno_agro.application.ProducaoListResponse;
-import br.com.agroorg.pequeno_agro.application.ProducaoRequest;
-import br.com.agroorg.pequeno_agro.application.ProducaoResponse;
+import br.com.agroorg.pequeno_agro.application.api.ProducaoListResponse;
+import br.com.agroorg.pequeno_agro.application.api.ProducaoRequest;
+import br.com.agroorg.pequeno_agro.application.api.ProducaoResponse;
 import br.com.agroorg.pequeno_agro.domain.Producao;
 
 public class ProducaoMapper {

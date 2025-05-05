@@ -1,4 +1,4 @@
-package br.com.agroorg.pequeno_agro.repository;
+package br.com.agroorg.pequeno_agro.application.repository;
 
 import br.com.agroorg.pequeno_agro.domain.Producao;
 import org.springframework.data.jpa.repository.JpaRepository;
