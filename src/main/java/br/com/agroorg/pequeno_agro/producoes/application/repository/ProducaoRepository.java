@@ -1,6 +1,6 @@
-package br.com.agroorg.pequeno_agro.application.repository;
+package br.com.agroorg.pequeno_agro.producoes.application.repository;
 
-import br.com.agroorg.pequeno_agro.domain.Producao;
+import br.com.agroorg.pequeno_agro.producoes.domain.Producao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

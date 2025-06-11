@@ -1,11 +1,17 @@
-package br.com.agroorg.pequeno_agro.application.api;
+package br.com.agroorg.pequeno_agro.producoes.application.api;
 
+import br.com.agroorg.pequeno_agro.producoes.domain.Equipamento;
+import br.com.agroorg.pequeno_agro.producoes.domain.Funcionario;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Getter
@@ -31,6 +37,13 @@ public class ProducaoRequest {
     @Positive(message = "A área deve ser um valor positivo.")
     @DecimalMax(value = "1000.0", message = "A área não pode ser maior que 1000 hectares.")
     private Double area;
+
+    @OneToMany(mappedBy = "producao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InsumosRequest> insumos;
+    @OneToMany(mappedBy = "producao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EquipamentoRequest> equipamentos;
+    @OneToMany(mappedBy = "producao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FuncionarioRequest> funcionarios;
 
     @AssertTrue(message = "A data de fim não pode ser anterior à data de início.")
     public boolean isDataFimValida() {

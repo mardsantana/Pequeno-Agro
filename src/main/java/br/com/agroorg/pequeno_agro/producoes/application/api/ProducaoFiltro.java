@@ -1,4 +1,4 @@
-package br.com.agroorg.pequeno_agro.application.api;
+package br.com.agroorg.pequeno_agro.producoes.application.api;
 
 import lombok.Getter;
 import lombok.Setter;

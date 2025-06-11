@@ -1,9 +1,9 @@
-package br.com.agroorg.pequeno_agro.application.service;
+package br.com.agroorg.pequeno_agro.producoes.application.service;
 
-import br.com.agroorg.pequeno_agro.application.api.ProducaoFiltro;
-import br.com.agroorg.pequeno_agro.application.api.ProducaoListResponse;
-import br.com.agroorg.pequeno_agro.application.api.ProducaoRequest;
-import br.com.agroorg.pequeno_agro.application.api.ProducaoResponse;
+import br.com.agroorg.pequeno_agro.producoes.application.api.ProducaoFiltro;
+import br.com.agroorg.pequeno_agro.producoes.application.api.ProducaoListResponse;
+import br.com.agroorg.pequeno_agro.producoes.application.api.ProducaoRequest;
+import br.com.agroorg.pequeno_agro.producoes.application.api.ProducaoResponse;
 import org.springframework.data.domain.Page;
 
 import org.springframework.data.domain.Pageable;
@@ -17,4 +17,6 @@ public interface IProducaoService {
     Page buscarComFiltros(ProducaoFiltro filtro, Pageable pageable);
     void atualizaProducao(UUID idProducao, ProducaoRequest request);
     void deletaProducao(UUID idProducao);
+    String gerarCsvComFiltros(ProducaoFiltro filtro);
+    byte[] gerarPdf(ProducaoFiltro filtro) throws Exception;
 }

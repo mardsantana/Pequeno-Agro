@@ -1,14 +1,15 @@
-package br.com.agroorg.pequeno_agro.application.service;
+package br.com.agroorg.pequeno_agro.producoes.application.service;
 
 
-import br.com.agroorg.pequeno_agro.application.api.ProducaoFiltro;
-import br.com.agroorg.pequeno_agro.application.api.ProducaoListResponse;
-import br.com.agroorg.pequeno_agro.application.api.ProducaoRequest;
-import br.com.agroorg.pequeno_agro.application.api.ProducaoResponse;
-import br.com.agroorg.pequeno_agro.application.mapper.ProducaoMapper;
-import br.com.agroorg.pequeno_agro.domain.Producao;
+import br.com.agroorg.pequeno_agro.producoes.application.api.ProducaoFiltro;
+import br.com.agroorg.pequeno_agro.producoes.application.api.ProducaoListResponse;
+import br.com.agroorg.pequeno_agro.producoes.application.api.ProducaoRequest;
+import br.com.agroorg.pequeno_agro.producoes.application.api.ProducaoResponse;
+import br.com.agroorg.pequeno_agro.producoes.application.mapper.ProducaoMapper;
+import br.com.agroorg.pequeno_agro.producoes.application.pdf.ProducaoPdfGenerator;
+import br.com.agroorg.pequeno_agro.producoes.domain.Producao;
 import br.com.agroorg.pequeno_agro.handler.APIException;
-import br.com.agroorg.pequeno_agro.application.repository.ProducaoRepository;
+import br.com.agroorg.pequeno_agro.producoes.application.repository.ProducaoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 
 import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -87,6 +89,36 @@ public class ProducaoServiceImpl implements IProducaoService {
         log.info("[start] ProducaoServiceImpl - deletaProducao: {}", idProducao);
         repository.deleteById(idProducao);
         log.info("[finish] ProducaoServiceImpl - deletaProducao: {}", idProducao);
+    }
+
+    @Override
+    public String gerarCsvComFiltros(ProducaoFiltro filtro) {
+        List<ProducaoResponse> producoes = buscarProducoes(filtro);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Tipo,Descrição,Área,Data Início,Finalizada\n");
+
+        for (ProducaoResponse p : producoes) {
+            sb.append(String.format("%s,%s,%.2f,%s,%s\n",
+                    p.getTipo(),
+                    p.getDescricao(),
+                    p.getArea(),
+                    p.getDataInicio(),
+                    p.getFinalizada()));
+        }
+
+        return sb.toString();
+    }
+
+    @Override
+    public byte[] gerarPdf(ProducaoFiltro filtro){
+        List<ProducaoResponse> producoes = buscarProducoes(filtro);
+        return new ProducaoPdfGenerator().gerarPdf(producoes);
+    }
+
+    private List<ProducaoResponse> buscarProducoes(ProducaoFiltro filtro) {
+        List<Producao> entidades = repository.findAll(ProducaoSpecs.comFiltros(filtro));
+        return entidades.stream().map(ProducaoMapper::toResponse).toList();
     }
 
 }

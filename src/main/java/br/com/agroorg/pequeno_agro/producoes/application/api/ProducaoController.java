@@ -1,21 +1,26 @@
-package br.com.agroorg.pequeno_agro.application.api;
+package br.com.agroorg.pequeno_agro.producoes.application.api;
 
 
-import br.com.agroorg.pequeno_agro.application.service.IProducaoService;
+import br.com.agroorg.pequeno_agro.producoes.application.service.IProducaoService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.data.domain.Pageable;
+
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/api/producao")
+@CrossOrigin(origins = "http://localhost:5173")
 @RequiredArgsConstructor
 @Slf4j
 public class ProducaoController {
@@ -31,7 +36,7 @@ public class ProducaoController {
         return ResponseEntity.created(URI.create("/agro-peq/producao/" + response.getIdProducao())).body(response);
     }
 
-    @GetMapping
+    @GetMapping("/todos")
     public ResponseEntity<List<ProducaoListResponse>> listarTodas() {
         log.info("[start] ProducaoController - listarTodas");
         List<ProducaoListResponse> lista = producaoService.listarProducoes();
@@ -50,7 +55,7 @@ public class ProducaoController {
     }
 
     @GetMapping("/filtro")
-    public ResponseEntity<Page<ProducaoResponse>> filtrar(@ModelAttribute ProducaoFiltro filtro, Pageable pageable) {
+    public ResponseEntity<Page<ProducaoResponse>> filtrar(@Validated @ModelAttribute ProducaoFiltro filtro, Pageable pageable) {
         log.info("[start] ProducaoController - filtrar");
         log.debug("Filtro aplicado: tipo={}, finalizada={}, dataInicioDe={}, dataInicioAte={}, page={}, size={}, sort={}",
                 filtro.getTipo(), filtro.getFinalizada(), filtro.getDataInicioDe(), filtro.getDataInicioAte(),
@@ -73,6 +78,23 @@ public class ProducaoController {
         log.info("[start] ProducaoController - deleta: {}", idProducao);
         producaoService.deletaProducao(idProducao);
         log.info("[finish] ProducaoController - deleta");
+    }
+
+    @GetMapping("/export/csv")
+    public void exportCsv(HttpServletResponse response, @ModelAttribute ProducaoFiltro filtro)throws IOException {
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=producoes.csv");
+
+        String csv = producaoService.gerarCsvComFiltros(filtro);
+        response.getWriter().write(csv);
+    }
+
+    @GetMapping("/export/pdf")
+    public void exportarPdf(@ModelAttribute ProducaoFiltro filtro, HttpServletResponse response) throws Exception {
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=producoes.pdf");
+        byte[] pdf = producaoService.gerarPdf(filtro);
+        response.getOutputStream().write(pdf);
     }
 
 }
